@@ -1,5 +1,4 @@
 {
-  "private": false,
   "displayName": "Homebridge SSH Multi Commands",
   "name": "homebridge-ssh-multi-commands",
   "version": "0.0.1",
