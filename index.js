@@ -7,7 +7,7 @@ var ssh = require('ssh-exec'),
 module.exports = function(homebridge) {
   Service = homebridge.hap.Service;
   Characteristic = homebridge.hap.Characteristic;
-  homebridge.registerAccessory('homebridge-ssh', 'SSH', SshAccessory);
+  homebridge.registerAccessory('homebridge-ssh-multi-commands', 'SSH Switch', SshAccessory);
 }
 
 function SshAccessory(log, config) {
@@ -18,7 +18,7 @@ function SshAccessory(log, config) {
   this.onCommand = config['on'];
   this.offCommand = config['off'];
   this.stateCommand = config['state'];
-  this.onValue = config['on_value'] || "playing";
+  this.onValue = config['on_value'] || "";
   this.onValue = this.onValue.trim().toLowerCase();
   this.exactMatch = config['exact_match'] || true;
   this.ssh = assign({
@@ -49,7 +49,7 @@ SshAccessory.prototype.setState = function(powerOn, callback) {
     commands = [commands];
   }
 
-  var execCommand = function(command, cb) {
+  var stream = function(command, cb) {
     var stream = ssh(command, accessory.ssh);
     stream.on('error', function (err) {
       accessory.log('Error: ' + err);
@@ -60,7 +60,7 @@ SshAccessory.prototype.setState = function(powerOn, callback) {
     });
   }
 
-  async.eachSeries(commands, execCommand, function(err) {
+  async.eachSeries(commands, stream, function(err) {
     if (err) {
       callback(err);
     } else {

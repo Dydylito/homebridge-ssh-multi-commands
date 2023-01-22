@@ -1,7 +1,7 @@
 {
   "displayName": "Homebridge SSH Multi Commands",
   "name": "homebridge-ssh-multi-commands",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "SSH Multi Commands plugin for Homebridge: https://github.com/Dydylito/homebridge-ssh-multi-command",
   "license": "MIT",
   "keywords": [
